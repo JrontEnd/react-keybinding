@@ -1,7 +1,5 @@
 # react-keybinding
 
-[![build status](https://secure.travis-ci.org/mapbox/react-keybinding.png)](http://travis-ci.org/mapbox/react-keybinding)
-
 Declarative, lightweight, and robust keybindings mixin for React.
 
 * Straightforward `'⌘S'` string syntax for declaring bindings
@@ -20,32 +18,45 @@ projects with either [browserify](http://browserify.org/) or
 [webpack](http://webpack.github.io/).
 
 ```sh
-$ npm install react-keybinding
+$ npm install react-keybinding-class
 ```
 
 ## Example
 
 ```js
+var reactMixin = require('react-mixin');
 var React = require('react'),
     Keybinding = require('../');
-var HelloMessage = React.createClass({
-  mixins: [Keybinding],
-  keybindingsPlatformAgnostic: true,
-  keybindings: {
-    '⌘S': function(e) {
-      console.log('save!');
-      e.preventDefault();
-    },
-    '⌘C': 'COPY'
-  },
+class HelloMessage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.keybindings = {
+      '⌘S': function(e) {
+        console.log('save!');
+        e.preventDefault();
+      },
+      '⌘C': 'COPY'
+    };
+
+    this.keybindingsPlatformAgnostic =  true;
+
+    this.__keybinding = this.__keybinding.bind(this);
+  }
+
+
   keybinding: function(event, action) {
     // event is the browser event, action is 'COPY'
     console.log(arguments);
-  },
+  }
+
   render: function() {
     return React.createElement("div", null, "Hello");
   }
-});
+}
+
+reactMixin.onClass(App, Keybinding);
+
 React.render(React.createElement(HelloMessage, {name: "John"}), document.body);
 ```
 
@@ -103,3 +114,7 @@ The full [range of codes and modifiers supported is listed in SYNTAX.md](SYNTAX.
 ```sh
 $ npm test
 ```
+
+## About Soft
+
+This soft modified from mapbox.
