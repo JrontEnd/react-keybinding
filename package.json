@@ -6,7 +6,7 @@
   "license": "MIT", 
   "author": "Tom MacWright", 
   "repository": {
-    "url": "git@github.com:mapbox/react-keybinding.git", 
+    "url": "git@github.com:jrontend/react-keybinding.git", 
     "type": "git"
   }, 
   "version": "3.0.0", 
